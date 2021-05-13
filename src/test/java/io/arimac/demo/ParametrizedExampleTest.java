@@ -7,9 +7,7 @@ import org.junit.jupiter.params.provider.*;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Parametrized Test Samples")
 class ParametrizedExampleTest {
@@ -55,13 +53,32 @@ class ParametrizedExampleTest {
         assertNotNull(userCategory);
     }
 
-
-    @DisplayName("CSV File Test")
+    @DisplayName("CSV Value Test")
     @ParameterizedTest(name = "{index} {0} Student GPA Test")
-    @CsvFileSource(resources = "/data.csv", numLinesToSkip = 1)
-    void testCsvFiles(String input, String expected) {
+    @CsvSource({"Jhon", "Kilal", "Max"})
+    void testCsvValues(String input) {
         //  Run In Every User Category
         assertNotNull(input);
+    }
+
+
+    @DisplayName("CSV Value Test")
+    @ParameterizedTest(name = "{index} {0} Student GPA Test")
+    @CsvSource({"Jhon", "Kilal", "Max"})
+    void testCsvAdvancedValues(String input) {
+        //  Run In Every User Category
+        assertNotNull(input);
+    }
+
+
+    @DisplayName("CSV File Test")
+    @ParameterizedTest(name = "{index}  Height : {0}, weight: {1} Check BMI")
+    @CsvFileSource(resources = "/data.csv", numLinesToSkip = 1)
+    void testCsvFiles(float height, float weight, UserCategory expected) {
+
+        final BMICalculatorService bmiCalculatorService = new BMICalculatorService();
+        float bmi = bmiCalculatorService.calculateBMI(weight, height);
+        assertEquals(expected, bmiCalculatorService.getUserCategory(bmi));
     }
 
 
