@@ -12,14 +12,14 @@ import org.junit.jupiter.api.condition.EnabledOnOs;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
-import static org.junit.jupiter.api.condition.JRE.JAVA_8;
+import static org.junit.jupiter.api.condition.JRE.JAVA_9;
 import static org.junit.jupiter.api.condition.OS.LINUX;
 
 class CalculatorTest {
 
 
     @Test
-    @DisplayName("Display Name Test")
+    @DisplayName("Check Assertion Display Name")
     void testSimpleAssertion() {
         assertEquals(1, 1);
     }
@@ -28,11 +28,10 @@ class CalculatorTest {
     @Test
     @Disabled("Not implemented yet")
     void testDisabledLogic() {
-        assertEquals(1, 1);
+        assertEquals(1, 2);
     }
 
     @Test
-    @Disabled("Exception Tests")
     void testExceptions() {
         final BMICalculatorService bmiCalculatorService = new BMICalculatorService();
         assertThrows(IllegalArgumentException.class, () -> {
@@ -52,7 +51,7 @@ class CalculatorTest {
         float bmi3 = bmiCalculatorService.calculateBMI(65, 135);
 
         assertEquals(UserCategory.NORMAL, bmiCalculatorService.getUserCategory(bmi1));
-        assertEquals(UserCategory.NORMAL, bmiCalculatorService.getUserCategory(bmi2));
+        assertEquals(UserCategory.UNDER_WEIGHT, bmiCalculatorService.getUserCategory(bmi2));
         assertEquals(UserCategory.OBESE, bmiCalculatorService.getUserCategory(bmi3));
     }
 
@@ -65,6 +64,7 @@ class CalculatorTest {
         float bmi2 = bmiCalculatorService.calculateBMI(75, 161);
 
         Assertions.assertAll(() -> assertEquals(UserCategory.NORMAL, bmiCalculatorService.getUserCategory(bmi1)),
+                () -> assertEquals(UserCategory.NORMAL, bmiCalculatorService.getUserCategory(bmi2)),
                 () -> assertEquals(UserCategory.OVER_WEIGHT, bmiCalculatorService.getUserCategory(bmi2)));
     }
 
@@ -75,7 +75,8 @@ class CalculatorTest {
 
         final BMICalculatorService bmiCalculatorService = new BMICalculatorService();
         float bmi2 = bmiCalculatorService.calculateBMI(75, 161);
-        assumeTrue(bmi2 > 0);
+
+        assumeTrue(bmi2 > 100);
 
         assertEquals(UserCategory.OVER_WEIGHT, bmiCalculatorService.getUserCategory(bmi2));
     }
@@ -84,7 +85,7 @@ class CalculatorTest {
     @Test
     @DisplayName("Run On OS Level")
     @EnabledOnOs({LINUX})
-    @EnabledOnJre(JAVA_8)
+    @EnabledOnJre(JAVA_9)
     void testRunOnOsLevel() {
 
         assertEquals(1, 1);

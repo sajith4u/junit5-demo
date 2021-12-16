@@ -25,7 +25,7 @@ public class BMICalculatorService {
      * @return
      */
     public UserCategory getUserCategory(float bmi) {
-       // System.out.println("Check Category for " + bmi);
+        System.out.println("Check Category for " + bmi);
         if (bmi < 18.5) {
             return UserCategory.UNDER_WEIGHT;
         } else if (bmi < 25) {

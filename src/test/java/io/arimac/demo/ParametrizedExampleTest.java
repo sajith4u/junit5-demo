@@ -14,10 +14,9 @@ class ParametrizedExampleTest {
 
 
     @ParameterizedTest
-    @ValueSource(ints = {2, 4, 6, 8})
+    @ValueSource(ints = {2, 4, 7, 8, 12})
     @DisplayName("Parameter Values Input")
     void testSimpleParamaterlizeTest(int x) {
-        System.out.println(x);
         assertTrue((x % 2 == 0));
     }
 

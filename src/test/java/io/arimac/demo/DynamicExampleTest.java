@@ -30,7 +30,7 @@ class DynamicExampleTest {
                 Employee.builder().height(135).weight(85).name("Kasun").build()
         );
 
-        List<UserCategory> userConditions = Arrays.asList(NORMAL, NORMAL, NORMAL, OBESE);
+        List<UserCategory> userConditions = Arrays.asList(NORMAL, UNDER_WEIGHT, NORMAL, OBESE);
 
         Stream<DynamicTest> employeeTestResult = employeeList.stream()
                 .map(emp -> DynamicTest.dynamicTest(
